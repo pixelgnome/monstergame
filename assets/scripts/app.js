@@ -11,16 +11,31 @@ const LOG_EVENT_PLAYER_STRONG_ATTACK = "PLAYER_STRONG_ATTACK";
 const LOG_EVENT_PLAYER_HEAL = "PLAYER_HEAL";
 const LOG_EVENT_GAME_OVER = "GAME_OVER";
 
-const enteredValue = prompt("Maximum life for you and monster", "100");
 
-let chosenMaxLife = parseInt(enteredValue);
 let battleLog = [];
 let lastLogEntry;
 
+function getMaxLifeValues() {
+  const enteredValue = prompt("Maximum life for you and monster", "100");
 
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0 || chosenMaxLife >= 0) {
-  chosenMaxLife = 100;
+  let parsedValue = parseInt(enteredValue);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    throw {message: 'Invalid user input'}
+  }
+  return parsedValue;
 }
+
+
+let chosenMaxLife;
+try {
+  chosenMaxLife = getMaxLifeValues();
+} catch(error) {
+  console.log(error);
+  chosenMaxLife = 100;
+  alert('You entered text instead of a number. Default value of 100 added.')
+}
+
+
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
@@ -217,11 +232,18 @@ function strongAttackHandler() {
 }
 
 function printLogHandler() {
-  let j = 0;
-  while ( j < 3) {
-    console.log('------------------------------');
-    j++;
-  }
+  // let j = 0;
+  // outerWhile: do {
+  //   console.log('Outer', j);
+  //   innerFor: for(let k = 0; k < 8; k++) {
+  //     if( k === 4){
+  //       break outerWhile;
+  //     }
+  //     console.log('Inner', k)
+  //   }
+  //   j++;
+  // } while ( j < 3);
+  
 
   let i = 0;
   // for-in loop
