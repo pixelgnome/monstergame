@@ -215,7 +215,31 @@ function strongAttackHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  // for (let i = 0; i < battleLog.length; i++) {
+  //   console.log(battleLog[i]);
+  // }
+
+  let j = 0;
+  while ( j < 3) {
+    console.log('------------------------------');
+    j++;
+  }
+  // // for-of loop
+  // for (const logEntry of battleLog) {
+  //   console.log(logEntry);
+  // }
+  let i = 0;
+  // for-in loop
+  for (const logEntry of battleLog) {
+    console.log(`#${i}`);
+    for (const key in logEntry) {
+      // console.log(key + ' : ' + logEntry[key]);
+      console.log(`${key} : ${logEntry[key]}`)
+    }
+    i++;
+  }
+
+  //console.log(battleLog);
 }
 
 attackBtn.addEventListener("click", attackHandler);
