@@ -11,10 +11,13 @@ const LOG_EVENT_PLAYER_STRONG_ATTACK = "PLAYER_STRONG_ATTACK";
 const LOG_EVENT_PLAYER_HEAL = "PLAYER_HEAL";
 const LOG_EVENT_GAME_OVER = "GAME_OVER";
 
-let battleLog = [];
-
 const enteredValue = prompt("Maximum life for you and monster", "100");
+
 let chosenMaxLife = parseInt(enteredValue);
+let battleLog = [];
+let lastLogEntry;
+
+
 if (isNaN(chosenMaxLife) || chosenMaxLife <= 0 || chosenMaxLife >= 0) {
   chosenMaxLife = 100;
 }
@@ -75,7 +78,6 @@ switch(event) {
     default:
       logEntry = {};
 }
-
 
   // if (event === LOG_EVENT_PLAYER_ATTACK) {
   //   logEntry.target = "MONSTER";
@@ -215,26 +217,22 @@ function strongAttackHandler() {
 }
 
 function printLogHandler() {
-  // for (let i = 0; i < battleLog.length; i++) {
-  //   console.log(battleLog[i]);
-  // }
-
   let j = 0;
   while ( j < 3) {
     console.log('------------------------------');
     j++;
   }
-  // // for-of loop
-  // for (const logEntry of battleLog) {
-  //   console.log(logEntry);
-  // }
+
   let i = 0;
   // for-in loop
   for (const logEntry of battleLog) {
-    console.log(`#${i}`);
-    for (const key in logEntry) {
-      // console.log(key + ' : ' + logEntry[key]);
-      console.log(`${key} : ${logEntry[key]}`)
+    if ((!lastLogEntry && lastLogEntry !== 0) || lastLogEntry < i) {
+      console.log(`#${i}`);
+      for (const key in logEntry) {
+        console.log(`${key} : ${logEntry[key]}`);
+      }
+      lastLogEntry = i;
+      break;
     }
     i++;
   }
